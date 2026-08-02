@@ -1,0 +1,13 @@
+/* Theme: 纸张绿刊。新增主题时复制本文件并替换 token 值即可。 */
+.theme-magazine-green {
+  --paper: #f6f0df;
+  --ink: #172b20;
+  --green: #2c6347;
+  --lime: #c5df6a;
+  --orange: #f05d3d;
+  --yellow: #f6c844;
+  --blue: #89b9d8;
+  --line: 3px solid var(--ink);
+  --paper-dot: #d9d0bd;
+  --photo-filter: saturate(.72) contrast(1.08);
+}
