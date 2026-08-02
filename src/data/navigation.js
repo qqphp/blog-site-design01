@@ -1,0 +1,1 @@
+export const navigation = [['首页', 'home'], ['文章', 'articles'], ['关于我', 'about'], ['合作', 'collaboration'], ['作品', 'works'], ['动态', 'activity'], ['友链', 'friends'], ['投资', 'investment'], ['书签', 'bookmarks']];

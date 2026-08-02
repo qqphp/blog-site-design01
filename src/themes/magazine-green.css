@@ -20,24 +20,15 @@ body.theme-magazine-green {
 /* Editorial project art: hard crops, halftone ink and poster-like colour fields. */
 .theme-magazine-green .works-editorial .work-photo {
   opacity: 1;
-  filter: grayscale(.65) contrast(1.35) brightness(.9);
+  filter: none;
 }
 
 .theme-magazine-green .works-editorial .work::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(var(--ink) 1.25px, transparent 1.7px) 0 0 / 7px 7px,
-    linear-gradient(142deg, rgba(197, 223, 106, .72) 0 37%, transparent 37% 100%);
-  mix-blend-mode: multiply;
+  display: none;
 }
 
 .theme-magazine-green .works-editorial .work::after {
-  z-index: 1;
-  background: linear-gradient(0deg, var(--paper) 0 44%, transparent 44% 100%);
+  display: none;
 }
 
 .theme-magazine-green .works-editorial .work:nth-child(2)::after {
