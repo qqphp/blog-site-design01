@@ -144,72 +144,55 @@ const Dot = () => (
 );
 
 function ArticlesPage() {
+  const directory = [
+    ["开发与产品", ["产品思考", "独立开发"]],
+    ["工作方法", ["效率工具"]],
+    ["体验与表达", ["设计实践"]],
+  ];
   const [category, setCategory] = useState("全部");
-  const [view, setView] = useState("list");
+  const [openGroup, setOpenGroup] = useState("开发与产品");
   const [query, setQuery] = useState("");
-  const categories = ["全部", ...new Set(articleRows.map((row) => row[0]))];
+  const activeGroup = directory.find(([, items]) => items.includes(category))?.[0] || "全部";
   const visible = articleRows.filter(
     (row) =>
       (category === "全部" || row[0] === category) &&
       `${row[1]}${row[2]}`.toLowerCase().includes(query.toLowerCase()),
   );
+  const selectCategory = (item) => {
+    setCategory(item);
+    setOpenGroup(directory.find(([, items]) => items.includes(item))?.[0] || "");
+  };
   return (
-    <section className={`page-section article-index ${view}`}>
-      <div className="article-toolbar">
-        <nav aria-label="文章分类">
-          {categories.map((item) => (
-            <button
-              className={category === item ? "selected" : ""}
-              key={item}
-              onClick={() => setCategory(item)}
-            >
-              {item}
-            </button>
-          ))}
+    <section className="page-section article-index knowledge-directory">
+      <aside className="knowledge-tree">
+        <p className="label">ARTICLE DIRECTORY</p>
+        <nav aria-label="文章知识分类">
+          <button className={`knowledge-all ${category === "全部" ? "selected" : ""}`} onClick={() => { setCategory("全部"); setOpenGroup(""); }}><span>全部文章</span><b>{articleRows.length}</b></button>
+          {directory.map(([group, items]) => <div className="knowledge-tree-group" key={group}>
+            <button className={activeGroup === group ? "selected" : ""} onClick={() => setOpenGroup(openGroup === group ? "" : group)}><span>{group}</span><b>{openGroup === group ? "⌃" : "⌄"}</b></button>
+            {openGroup === group && <div>{items.map((item) => <button className={category === item ? "selected" : ""} key={item} onClick={() => selectCategory(item)}>{item}<small>{articleRows.filter((row) => row[0] === item).length}</small></button>)}</div>}
+          </div>)}
         </nav>
-        <div>
-          <label>
-            <span className="sr-only">搜索文章</span>
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="搜索文章…"
-            />
-          </label>
-          <button
-            className={view === "list" ? "selected" : ""}
-            onClick={() => setView("list")}
-            aria-label="列表视图"
-          >
-            ☷
-          </button>
-          <button
-            className={view === "cards" ? "selected" : ""}
-            onClick={() => setView("cards")}
-            aria-label="卡片视图"
-          >
-            ▦
-          </button>
+        <p>先选择一个方向，再从文章里慢慢往下走。</p>
+      </aside>
+
+      <main className="knowledge-results">
+        <div className="knowledge-heading"><div><p className="label">{activeGroup === "全部" ? "ALL ARTICLES" : activeGroup.toUpperCase()}</p><h2>{category === "全部" ? "所有文章" : category}</h2></div><span>共 {visible.length} 篇 · 按最新发布</span></div>
+        <div className="knowledge-current"><b>{category === "全部" ? "从所有记录中挑一篇开始" : `正在浏览：${category}`}</b><span>把复杂的事拆开讲，让每一次阅读都能带走一点东西。</span></div>
+        <div className="knowledge-listing">
+          {visible.map((row, index) => <article key={row[1]}>
+            <i>{String(index + 1).padStart(2, "0")}</i><div><small>{row[0]} · {row[3]} · 阅读约 6 分钟</small><h2>{row[1]}</h2><p>{row[2]}</p></div><button onClick={() => document.getElementById("soon").showModal()} aria-label={`阅读：${row[1]}`}>↗</button>
+          </article>)}
+          {!visible.length && <p className="knowledge-empty">没有找到匹配文章，试试更短的关键词或换一个分类。</p>}
         </div>
-      </div>
-      <p className="article-count">
-        {category} · 找到 {visible.length} 篇文章
-      </p>
-      <div className="article-listing">
-        {visible.map((row, index) => (
-          <article key={row[1]}>
-            <i>{String(index + 1).padStart(2, "0")}</i>
-            <div>
-              <small>
-                {row[0]} · {row[3]}
-              </small>
-              <h2>{row[1]}</h2>
-              <p>{row[2]}</p>
-            </div>
-            <b>↗</b>
-          </article>
-        ))}
-      </div>
+      </main>
+
+      <aside className="knowledge-aside">
+        <label className="knowledge-search"><span>SEARCH ARTICLES</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索标题、摘要…" /></label>
+        <section className="knowledge-next"><p className="label">START HERE</p><h2>先从一篇<br />能解决问题的文章开始。</h2><p>不知道读什么？从近期最受欢迎的产品思考文章进入。</p><button onClick={() => document.getElementById("soon").showModal()}>随机读一篇 ↗</button></section>
+        <section className="knowledge-archive"><p className="label">ARCHIVE</p><button className="selected">2026 <b>{articleRows.length}</b></button><button>2025 <b>0</b></button><button>2024 <b>0</b></button></section>
+        <section className="knowledge-tags"><p className="label">POPULAR TAGS</p><div>{["产品", "开发", "效率", "设计", "复盘"].map((tag) => <button key={tag} onClick={() => setQuery(tag)}>#{tag}</button>)}</div></section>
+      </aside>
     </section>
   );
 }
