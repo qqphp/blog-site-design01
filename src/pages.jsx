@@ -7,9 +7,9 @@ const articleRows = [
   ['独立开发', '给 Side Project 的 5 个完成定义', '别让「差不多了」成为项目永远上线不了的原因。', '2026.07.27'],
 ];
 const projectRows = [
-  ['写作工作台', '给长文写作者的轻量发布工具', 'React · Markdown', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1000&q=85'],
-  ['面包店记账', '小生意的日常现金流面板', '产品设计 · 数据', 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85'],
-  ['路线图实验室', '让团队讨论不再卡在会议室', '协作 · 原型', 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&w=1000&q=85'],
+  ['写作工作台', '给长文写作者的轻量发布工具', 'React · Markdown', 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=85'],
+  ['面包店记账', '小生意的日常现金流面板', '产品设计 · 数据', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85'],
+  ['路线图实验室', '让团队讨论不再卡在会议室', '协作 · 原型', 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=85'],
 ];
 const copy = {
   articles: ['文章', '把做过、想过、踩过的坑，写成可以被带走的东西。'],
